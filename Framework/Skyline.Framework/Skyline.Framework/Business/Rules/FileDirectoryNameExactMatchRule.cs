@@ -7,7 +7,7 @@ namespace Skyline.Framework.Business.Rules
 	{
 		public override bool Match(FileInfo file)
 		{
-			return file.Directory.FullName.Equals(this.Criteria, StringComparison.OrdinalIgnoreCase);
+			return file.Directory != null && file.Directory.FullName.Equals(this.Criteria, StringComparison.OrdinalIgnoreCase);
 		}
 	}
 }

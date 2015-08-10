@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CleanMyDesktop
@@ -15,6 +8,14 @@ namespace CleanMyDesktop
 		public FormMain()
 		{
 			InitializeComponent();
+		}
+
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (var form = new FormAbout())
+			{
+				form.ShowDialog();
+			}
 		}
 	}
 }
