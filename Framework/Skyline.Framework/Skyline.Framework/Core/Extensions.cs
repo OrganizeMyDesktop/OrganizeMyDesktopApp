@@ -1,10 +1,10 @@
 ﻿namespace Skyline.Framework.Core
 {
 	using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
+	using System.Collections.Generic;
+	using System.Collections.Specialized;
+	using System.IO;
+	using System.Linq;
 
 	public static class Extensions
 	{
@@ -36,10 +36,7 @@ using System.Linq;
 
 		public static List<T> ToList<T>(this object obj, string seperator)
 		{
-			if (obj == null)
-				return new List<T>();
-
-			return (obj as string).Split(seperator.ToCharArray()).Select(x => (T)Convert.ChangeType(x, typeof(T))).ToList();
+			return obj == null ? new List<T>() : obj.ToString().Split(seperator.ToCharArray()).Select(x => (T)Convert.ChangeType(x, typeof(T))).ToList();
 		}
 
 		public static T To<T>(this object obj, T defvalue) where T : struct
@@ -63,6 +60,11 @@ using System.Linq;
 		public static string FileNameWithoutExtension(this FileInfo fileInfo)
 		{
 			return Path.GetFileNameWithoutExtension(fileInfo.Name);
+		}
+
+		public static string FileExtension(this FileInfo fileInfo)
+		{
+			return Path.GetExtension(fileInfo.Name);
 		}
 	}
 }
