@@ -101,7 +101,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Skyline.Framework\Skyline.Framework\Skyline.Framework.csproj">
+    <ProjectReference Include="..\Skyline.Framework\Skyline.Framework.csproj">
       <Project>{19e4954a-907a-4aaa-a133-cafabbb3b129}</Project>
       <Name>Skyline.Framework</Name>
     </ProjectReference>
