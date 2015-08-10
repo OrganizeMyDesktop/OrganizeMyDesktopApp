@@ -1,9 +1,10 @@
 ﻿namespace Skyline.Framework.Core
 {
 	using System;
-	using System.Collections.Generic;
-	using System.Collections.Specialized;
-	using System.Linq;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
+using System.Linq;
 
 	public static class Extensions
 	{
@@ -57,6 +58,11 @@
 			{
 				return (T)Convert.ChangeType(obj, typeof(T));
 			}
+		}
+
+		public static string FileNameWithoutExtension(this FileInfo fileInfo)
+		{
+			return Path.GetFileNameWithoutExtension(fileInfo.Name);
 		}
 	}
 }

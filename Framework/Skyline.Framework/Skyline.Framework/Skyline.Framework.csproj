@@ -43,6 +43,16 @@
     <Compile Include="Business\Enums.cs" />
     <Compile Include="Business\IRule.cs" />
     <Compile Include="Business\RuleBase.cs" />
+    <Compile Include="Business\Rules\FileDirectoryNameExactMatchRule.cs" />
+    <Compile Include="Business\Rules\FileSizeLessThenRule.cs" />
+    <Compile Include="Business\Rules\FileSizeEqualsRule.cs" />
+    <Compile Include="Business\Rules\FileSizeGreaterThenRule.cs" />
+    <Compile Include="Business\Rules\FileExtensionMatchRule.cs" />
+    <Compile Include="Business\Rules\FileIsReadonlyRule.cs" />
+    <Compile Include="Business\Rules\FileNameEndsWithRule.cs" />
+    <Compile Include="Business\Rules\FileNameStartsWithRule.cs" />
+    <Compile Include="Business\Rules\FileNameContainsRule.cs" />
+    <Compile Include="Business\Rules\FileNameMatchRule.cs" />
     <Compile Include="Core\AppSettingsManager.cs" />
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\Singleton.cs" />
