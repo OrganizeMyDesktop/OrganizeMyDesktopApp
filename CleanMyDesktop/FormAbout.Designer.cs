@@ -30,11 +30,11 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
 			this.okButton = new System.Windows.Forms.Button();
 			this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-			this.textBoxDescription = new System.Windows.Forms.TextBox();
-			this.labelCopyright = new System.Windows.Forms.Label();
-			this.labelVersion = new System.Windows.Forms.Label();
-			this.labelProductName = new System.Windows.Forms.Label();
 			this.logoPictureBox = new System.Windows.Forms.PictureBox();
+			this.labelProductName = new System.Windows.Forms.Label();
+			this.labelVersion = new System.Windows.Forms.Label();
+			this.labelCopyright = new System.Windows.Forms.Label();
+			this.textBoxDescription = new System.Windows.Forms.TextBox();
 			this.tableLayoutPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
 			this.SuspendLayout();
@@ -56,34 +56,34 @@
 			this.tableLayoutPanel.Controls.Add(this.okButton, 1, 5);
 			this.tableLayoutPanel.Name = "tableLayoutPanel";
 			// 
-			// textBoxDescription
-			// 
-			resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
-			this.textBoxDescription.Name = "textBoxDescription";
-			this.textBoxDescription.ReadOnly = true;
-			this.textBoxDescription.TabStop = false;
-			// 
-			// labelCopyright
-			// 
-			resources.ApplyResources(this.labelCopyright, "labelCopyright");
-			this.labelCopyright.Name = "labelCopyright";
-			// 
-			// labelVersion
-			// 
-			resources.ApplyResources(this.labelVersion, "labelVersion");
-			this.labelVersion.Name = "labelVersion";
-			// 
-			// labelProductName
-			// 
-			resources.ApplyResources(this.labelProductName, "labelProductName");
-			this.labelProductName.Name = "labelProductName";
-			// 
 			// logoPictureBox
 			// 
 			resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
 			this.logoPictureBox.Name = "logoPictureBox";
 			this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
 			this.logoPictureBox.TabStop = false;
+			// 
+			// labelProductName
+			// 
+			resources.ApplyResources(this.labelProductName, "labelProductName");
+			this.labelProductName.Name = "labelProductName";
+			// 
+			// labelVersion
+			// 
+			resources.ApplyResources(this.labelVersion, "labelVersion");
+			this.labelVersion.Name = "labelVersion";
+			// 
+			// labelCopyright
+			// 
+			resources.ApplyResources(this.labelCopyright, "labelCopyright");
+			this.labelCopyright.Name = "labelCopyright";
+			// 
+			// textBoxDescription
+			// 
+			resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
+			this.textBoxDescription.Name = "textBoxDescription";
+			this.textBoxDescription.ReadOnly = true;
+			this.textBoxDescription.TabStop = false;
 			// 
 			// FormAbout
 			// 
