@@ -56,6 +56,7 @@
     <Compile Include="Business\Rules\FileNameContainsRuleTests.cs" />
     <Compile Include="Business\Rules\FileNameEndsWithRuleTests.cs" />
     <Compile Include="Business\Rules\FileNameExactMatchRuleTests.cs" />
+    <Compile Include="Business\Rules\FileNameRegexMatchRuleTests.cs" />
     <Compile Include="Business\Rules\FileNameStartsWithRuleTests.cs" />
     <Compile Include="Business\Rules\FileSizeEqualsRuleTests.cs" />
     <Compile Include="Business\Rules\FileSizeGreaterThenRuleTests.cs" />

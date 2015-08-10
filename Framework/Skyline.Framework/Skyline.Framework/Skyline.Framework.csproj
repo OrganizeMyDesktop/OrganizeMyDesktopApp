@@ -44,6 +44,7 @@
     <Compile Include="Business\IRule.cs" />
     <Compile Include="Business\RuleBase.cs" />
     <Compile Include="Business\Rules\FileDirectoryNameExactMatchRule.cs" />
+    <Compile Include="Business\Rules\FileNameRegexMatchRule.cs" />
     <Compile Include="Business\Rules\FileSizeLessThenRule.cs" />
     <Compile Include="Business\Rules\FileSizeEqualsRule.cs" />
     <Compile Include="Business\Rules\FileSizeGreaterThenRule.cs" />
