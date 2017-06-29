@@ -1,0 +1,6 @@
+language: csharp
+solution: Skyline.sln
+install:
+  - nuget restore Skyline.sln
+script:
+  - xbuild /p:Configuration=Release Skyline.sln
