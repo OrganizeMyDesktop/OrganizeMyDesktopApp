@@ -2,7 +2,7 @@
 
 namespace CleanMyDesktop.Core.Extensions
 {
-    public class AssemblyHelper : Singleton<AssemblyHelper>
+    public sealed class AssemblyHelper
     {
         private AssemblyHelper()
         {
@@ -14,16 +14,16 @@ namespace CleanMyDesktop.Core.Extensions
             AssemblyCompany = asm.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company;
         }
 
-        public string AssemblyTitle { get; set; }
+        public string AssemblyTitle { get; }
 
-        public string AssemblyVersion { get; set; }
+        public string AssemblyVersion { get; }
 
-        public string AssemblyDescription { get; set; }
+        public string AssemblyDescription { get; }
 
-        public string AssemblyProduct { get; set; }
+        public string AssemblyProduct { get; }
 
-        public string AssemblyCopyright { get; set; }
+        public string AssemblyCopyright { get; }
 
-        public string AssemblyCompany { get; set; }
+        public string AssemblyCompany { get; }
     }
 }

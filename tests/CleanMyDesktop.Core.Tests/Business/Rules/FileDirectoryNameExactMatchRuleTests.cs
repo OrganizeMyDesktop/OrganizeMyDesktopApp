@@ -10,7 +10,6 @@ namespace CleanMyDesktop.Core.Tests.Business.Rules
         [Fact]
         public void TestRuleFail()
         {
-
             var rule = new FileDirectoryNameExactMatchRule { Criteria = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mustfail") };
             var fileInfo = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + @"\testfile.txt");
             Assert.False(rule.Match(fileInfo));
@@ -20,7 +19,7 @@ namespace CleanMyDesktop.Core.Tests.Business.Rules
         public void TestRuleSucceed()
         {
             var rule = new FileDirectoryNameExactMatchRule { Criteria = Path.TrimEndingDirectorySeparator(AppDomain.CurrentDomain.BaseDirectory) };
-            var fileInfo = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + @"testfile.txt");
+            var fileInfo = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "testfile.txt");
             Assert.True(rule.Match(fileInfo));
         }
     }

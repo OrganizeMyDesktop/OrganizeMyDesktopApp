@@ -5,7 +5,6 @@ using CleanMyDesktop.Core.Business.Rules;
 
 namespace CleanMyDesktop.Core.Tests.Business.Rules
 {
-	
 	public class FileNameEndsWithRuleTests
 	{
 		[Fact]

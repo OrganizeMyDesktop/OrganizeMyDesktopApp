@@ -8,7 +8,7 @@ namespace CleanMyDesktop.Core.Business.Rules
 	{
 		public override bool Match(FileInfo file)
 		{
-			return file.FileNameWithoutExtension().Equals(this.Criteria, StringComparison.OrdinalIgnoreCase);
+			return file.FileNameWithoutExtension().Equals(Criteria, StringComparison.OrdinalIgnoreCase);
 		}
 	}
 }

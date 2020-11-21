@@ -1,8 +1,8 @@
-﻿using FluentAssertions;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
+using System.Threading;
+using FluentAssertions;
 using Xunit;
 
 namespace CleanMyDesktop.Core.IO.Tests
@@ -13,7 +13,8 @@ namespace CleanMyDesktop.Core.IO.Tests
         public FileSystemIntegrationTests()
         {
             testFolder = Path.Combine(Path.GetDirectoryName(GetType().GetTypeInfo().Assembly.Location), "testfolder");
-            if (!Directory.Exists(testFolder)) Directory.CreateDirectory(testFolder);
+            if (!Directory.Exists(testFolder))
+                Directory.CreateDirectory(testFolder);
         }
 
         private string CombineFileName(string fileName)
@@ -28,17 +29,16 @@ namespace CleanMyDesktop.Core.IO.Tests
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.FileName
                                  | NotifyFilters.DirectoryName, true);
-            using (var monitoredSubject = fileSystemWatch.Monitor())
-            {
-                var fileName = Guid.NewGuid().ToString() + ".txt";
-                fileSystemWatch.Start();
-                Task.Delay(1000);
-                File.WriteAllText(CombineFileName(fileName), Guid.NewGuid().ToString());
-                Task.Delay(1000);
-                monitoredSubject.Should().Raise("Created")
-                .WithArgs<FileSystemEventArgs>(args => args.ChangeType == WatcherChangeTypes.Created);
-            }
+            using var monitoredSubject = fileSystemWatch.Monitor();
+            var fileName = Guid.NewGuid().ToString() + ".txt";
+            fileSystemWatch.Start();
+            Thread.Sleep(1000);
+            File.WriteAllText(CombineFileName(fileName), Guid.NewGuid().ToString());
+            Thread.Sleep(1000);
 
+            monitoredSubject.Should()
+                .Raise("Created")
+                .WithArgs<FileSystemEventArgs>(args => args.ChangeType == WatcherChangeTypes.Created);
         }
 
         [Fact]
@@ -51,15 +51,15 @@ namespace CleanMyDesktop.Core.IO.Tests
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.FileName
                                  | NotifyFilters.DirectoryName, true);
-            using (var monitoredSubject = fileSystemWatch.Monitor())
-            {
-                fileSystemWatch.Start();
-                Task.Delay(1000);
-                File.Delete(fullDir);
-                Task.Delay(1000);
-                monitoredSubject.Should().Raise("Deleted")
+            using var monitoredSubject = fileSystemWatch.Monitor();
+            fileSystemWatch.Start();
+            Thread.Sleep(1000);
+            File.Delete(fullDir);
+            Thread.Sleep(1000);
+
+            monitoredSubject.Should()
+                .Raise("Deleted")
                 .WithArgs<FileSystemEventArgs>(args => args.ChangeType == WatcherChangeTypes.Deleted);
-            }
         }
 
         [Fact]
@@ -69,26 +69,28 @@ namespace CleanMyDesktop.Core.IO.Tests
             var fullDir = CombineFileName(fileName);
             File.WriteAllText(fullDir, Guid.NewGuid().ToString());
 
-            using (var fileSystemWatch = new FileSystemWatch(testFolder, "*.txt", NotifyFilters.LastAccess
+            using var fileSystemWatch = new FileSystemWatch(testFolder, "*.txt", NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.FileName
                                  | NotifyFilters.Size
-                                 | NotifyFilters.DirectoryName, true))
-            using (var monitoredSubject = fileSystemWatch.Monitor())
-            {
-                fileSystemWatch.Start();
-                Task.Delay(1000);
-                File.AppendAllText(fullDir, Guid.NewGuid().ToString());
-                Task.Delay(100);
-                monitoredSubject.Should().Raise("Changed")
+                                 | NotifyFilters.DirectoryName, true);
+            using var monitoredSubject = fileSystemWatch.Monitor();
+            fileSystemWatch.Start();
+            Thread.Sleep(1000);
+            File.AppendAllText(fullDir, Guid.NewGuid().ToString());
+            Thread.Sleep(100);
+
+            monitoredSubject.Should()
+                .Raise("Changed")
                 .WithArgs<FileSystemEventArgs>(args => args.Name == fileName && args.ChangeType == WatcherChangeTypes.Changed);
-            }
         }
 
         public void Dispose()
         {
             if (Directory.Exists(testFolder))
                 Directory.Delete(testFolder, true);
+
+            GC.SuppressFinalize(this);
         }
     }
 }

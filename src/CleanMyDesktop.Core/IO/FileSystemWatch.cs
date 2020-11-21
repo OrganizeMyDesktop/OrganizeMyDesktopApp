@@ -5,18 +5,16 @@ namespace CleanMyDesktop.Core.IO
 {
     public class FileSystemWatch : IFileSystemWatch
     {
-        private bool initialized = false;
+        private bool _initialized;
+        private readonly bool _includeSubdirectories;
         private FileSystemWatcher _watchFolder;
-        private string _path { get; set; }
-        private string _filter { get; set; }
-        private NotifyFilters _notificationFilter { get; set; }
-        private bool _includeSubdirectories { get; set; }
+        private bool disposedValue;
 
         public FileSystemWatch(string path, string filter, NotifyFilters notificationFilter, bool includeSubdirectories = true)
         {
-            _path = path;
-            _notificationFilter = notificationFilter;
-            _filter = filter;
+            Path = path;
+            NotificationFilter = notificationFilter;
+            Filter = filter;
             _includeSubdirectories = includeSubdirectories;
         }
 
@@ -26,52 +24,59 @@ namespace CleanMyDesktop.Core.IO
         public event RenamedEventHandler Renamed;
         public event ErrorEventHandler Error;
 
-        public string Path { get { return _path; } }
-        public string Filter { get { return _filter; } }
-        public NotifyFilters NotificationFilter { get { return _notificationFilter; } }
+        public string Path { get; }
+        public string Filter { get; }
+        public NotifyFilters NotificationFilter { get; }
 
         public void Start()
         {
-            if (!initialized)
+            if (!_initialized)
             {
-                _watchFolder = new FileSystemWatcher(_path, _filter)
+                _watchFolder = new FileSystemWatcher(Path, Filter)
                 {
                     IncludeSubdirectories = _includeSubdirectories,
-                    NotifyFilter = _notificationFilter
+                    NotifyFilter = NotificationFilter
                 };
 
-                if (Changed != null)
-                    _watchFolder.Changed += Changed;
-                if (Created != null)
-                    _watchFolder.Created += Created;
-                if (Deleted != null)
-                    _watchFolder.Deleted += Deleted;
-                if (Renamed != null)
-                    _watchFolder.Renamed += Renamed;
-                if (Error != null)
-                    _watchFolder.Error += Error;
+                AttachEvents();
 
-                initialized = true;
+                _initialized = true;
             }
             _watchFolder.EnableRaisingEvents = true;
         }
 
         public void Stop()
         {
-            if (initialized)
+            if (_initialized)
             {
                 _watchFolder.EnableRaisingEvents = false;
+                DetachEvents();
+                _watchFolder.Dispose();
             }
         }
 
         public bool Enabled
         {
-            get { return initialized && _watchFolder.EnableRaisingEvents; }
+            get { return _initialized && _watchFolder.EnableRaisingEvents; }
         }
 
         public bool IncludeSubdirectories
         {
-            get { return initialized && _watchFolder.IncludeSubdirectories; }
+            get { return _initialized && _watchFolder.IncludeSubdirectories; }
+        }
+
+        private void AttachEvents()
+        {
+            if (Changed != null)
+                _watchFolder.Changed += Changed;
+            if (Created != null)
+                _watchFolder.Created += Created;
+            if (Deleted != null)
+                _watchFolder.Deleted += Deleted;
+            if (Renamed != null)
+                _watchFolder.Renamed += Renamed;
+            if (Error != null)
+                _watchFolder.Error += Error;
         }
 
         private void DetachEvents()
@@ -91,14 +96,26 @@ namespace CleanMyDesktop.Core.IO
             }
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Stop();
+                    if (Enabled)
+                    {
+                        DetachEvents();
+                        _watchFolder?.Dispose();
+                    }
+                }
+                disposedValue = true;
+            }
+        }
+
         public void Dispose()
         {
-            Stop();
-            if (_watchFolder != null)
-            {
-                DetachEvents();
-                _watchFolder.Dispose();
-            }
+            Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
     }

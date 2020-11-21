@@ -2,8 +2,8 @@
 
 namespace CleanMyDesktop.Core.Business
 {
-    interface IRule
-	{
-		bool Match(FileInfo file);
-	}
+    public interface IRule
+    {
+        bool Match(FileInfo file);
+    }
 }

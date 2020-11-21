@@ -7,7 +7,7 @@ namespace CleanMyDesktop.Core.Business.Rules
 	{
 		public override bool Match(FileInfo file)
 		{
-			return file.FileNameWithoutExtension().Contains(this.Criteria);
+			return file.FileNameWithoutExtension().Contains(Criteria);
 		}
 	}
 }

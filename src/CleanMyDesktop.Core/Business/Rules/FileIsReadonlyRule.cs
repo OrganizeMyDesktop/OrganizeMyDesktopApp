@@ -7,7 +7,7 @@ namespace CleanMyDesktop.Core.Business.Rules
 	{
 		public override bool Match(FileInfo file)
 		{
-			return file.IsReadOnly == this.Criteria.To<bool>();
+			return file.IsReadOnly == Criteria.To<bool>();
 		}
 	}
 }
